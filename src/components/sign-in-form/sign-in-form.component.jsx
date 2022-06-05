@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, 
+        // useContext
+        } from 'react';
 
 import { signInWithGooglePopup, signInAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils"
 
@@ -7,6 +9,7 @@ import Button from '../button/button.component';
 
 import './sign-in.style.scss';
 
+// import { UserContext } from "../../contexts/user.context";
 
 const defaultSignInFormField = {
     email : '',
@@ -18,6 +21,8 @@ const defaultSignInFormField = {
 const SignInForm = () => {
 
     const [formFields, setFormFields] = useState(defaultSignInFormField);
+
+    // const { setCurrentUser } = useContext(UserContext);
 
     const {
         email,
@@ -32,8 +37,11 @@ const SignInForm = () => {
 
     const signInWithGoogle = async () => {
         const {user} = await signInWithGooglePopup();
-        const userDocRef = await createUserDocumentFromAuth(user);
+        // const userDocRef = await createUserDocumentFromAuth(user);
         console.log(user);
+        
+        // setCurrentUser(user);
+        
     }
 
     const handleSubmit = async (event) => {
@@ -47,6 +55,8 @@ const SignInForm = () => {
         try {
             const { user } = await signInAuthUserWithEmailAndPassword(email, password);
             console.log(user);
+            
+            // setCurrentUser(user);
             // if(userDocRef != null){
                 // const {user} = userDocRef;
                 // user.displayName = displayName; (this is also works, but i changed it so its like the vids tutorial)

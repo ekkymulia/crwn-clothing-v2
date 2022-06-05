@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, 
+        // useContext 
+        } from "react";
 
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 
@@ -6,6 +8,8 @@ import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 
 import './sign-up.style.scss'
+
+// import { UserContext } from '../../contexts/user.context';
 
 //object
 
@@ -19,6 +23,8 @@ const defaultFormField = {
 const SignUpForm = () => {
 
     const [formFields, setFormFields] = useState(defaultFormField);
+
+    // const { setCurrentUser } = useContext(UserContext);
 
     const {
         displayName,
@@ -52,11 +58,13 @@ const SignUpForm = () => {
             const {user} = await createAuthUserWithEmailAndPassword(email, password);
             // if(userDocRef != null){
                 // const {user} = userDocRef;
+
                 // user.displayName = displayName; (this is also works, but i changed it so its like the vids tutorial)
                 const response = await createUserDocumentFromAuth(user, {displayName});
                 // console.log(response);
             // }
-
+            // setCurrentUser(user);
+            
             resetFormFields();
         } catch (error) {
             if(error.code === 'auth/email-already-in-use'){
