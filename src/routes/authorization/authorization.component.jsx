@@ -4,7 +4,7 @@
 import SignUpForm from '../../components/sign-up-form/sign-up-form.component';
 import SignInForm from "../../components/sign-in-form/sign-in-form.component";
 
-import './authorization.style.scss';
+import {AuthorizationContainer} from './authorization.style.jsx';
 
 const Authorization = () => {
     // useEffect(() => {
@@ -27,10 +27,10 @@ const Authorization = () => {
 
 
     return(
-        <div className='authorization-container'>
+        <AuthorizationContainer>
             <SignInForm/>
             <SignUpForm/>
-        </div>
+        </AuthorizationContainer>
     )
 
     // put on return for sign in redirect
