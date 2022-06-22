@@ -2,12 +2,16 @@ import { useState,
         // useContext 
         } from "react";
 
+import { useDispatch } from "react-redux";
+
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 
 import './sign-up.style.scss'
+
+import { signUpStart } from "../../store/user/user.action";
 
 // import { UserContext } from '../../contexts/user.context';
 
@@ -21,6 +25,7 @@ const defaultFormField = {
 }
 
 const SignUpForm = () => {
+    const dispatch = useDispatch();
 
     const [formFields, setFormFields] = useState(defaultFormField);
 
@@ -55,15 +60,7 @@ const SignUpForm = () => {
         }
 
         try {
-            const {user} = await createAuthUserWithEmailAndPassword(email, password);
-            // if(userDocRef != null){
-                // const {user} = userDocRef;
-
-                // user.displayName = displayName; (this is also works, but i changed it so its like the vids tutorial)
-                const response = await createUserDocumentFromAuth(user, {displayName});
-                // console.log(response);
-            // }
-            // setCurrentUser(user);
+            dispatch(signUpStart(email, password, displayName))
             
             resetFormFields();
         } catch (error) {

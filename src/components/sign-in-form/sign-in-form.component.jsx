@@ -2,12 +2,14 @@ import { useState,
         // useContext
         } from 'react';
 
-import { signInWithGooglePopup, signInAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils"
+import { useDispatch } from 'react-redux';
 
 import FormInput from '../form-input/form-input.component';
 import Button, {BUTTON_TYPE_CLASSES} from '../button/button.component';
 
 import './sign-in.style.scss';
+
+import { googleSignInStart, emailSignInStart } from '../../store/user/user.action';
 
 // import { UserContext } from "../../contexts/user.context";
 
@@ -20,6 +22,8 @@ const defaultSignInFormField = {
 
 const SignInForm = () => {
 
+    const dispatch = useDispatch();
+
     const [formFields, setFormFields] = useState(defaultSignInFormField);
 
     // const { setCurrentUser } = useContext(UserContext);
@@ -29,20 +33,14 @@ const SignInForm = () => {
         password,
     } = formFields
 
-    console.log(formFields);
-
     const resetFormFields = () => {
         setFormFields(defaultSignInFormField);
     }
 
     const signInWithGoogle = async () => {
-        const {user} = await signInWithGooglePopup();
-        // const userDocRef = await createUserDocumentFromAuth(user);
-        console.log(user);
-        
-        // setCurrentUser(user);
-        
+        dispatch(googleSignInStart())        
     }
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -53,17 +51,7 @@ const SignInForm = () => {
         }
 
         try {
-            const { user } = await signInAuthUserWithEmailAndPassword(email, password);
-            console.log(user);
-            
-            // setCurrentUser(user);
-            // if(userDocRef != null){
-                // const {user} = userDocRef;
-                // user.displayName = displayName; (this is also works, but i changed it so its like the vids tutorial)
-                // const response = await createUserDocumentFromAuth(user, {displayName});
-                // console.log(response);
-            // }
-
+            dispatch(emailSignInStart(email, password))
             resetFormFields();
         } catch (error) {
 
