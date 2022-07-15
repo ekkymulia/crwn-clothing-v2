@@ -6,6 +6,8 @@ import {CheckoutContainer, CheckoutHeader, HeaderBlock, Total} from './checkout.
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 import { selectCartItems, selectCartTotal } from "../../store/cart/cart.selector.js";
 
+import PaymentForm from "../../components/payment-form/payment-form.component.jsx";
+
 
 const Checkout = () => {
 
@@ -44,6 +46,8 @@ const Checkout = () => {
             )) }
 
            <Total>TOTAL $ {cartTotal}</Total>
+
+           <PaymentForm/>
 
         </CheckoutContainer>
     )
