@@ -16,8 +16,14 @@ import {
   Value,
   RemoveButton,
 } from './checkout-item.styles';
+import { FC } from 'react';
+import { CartItem } from '../../store/cart/cart.types';
 
-const CheckoutItem = ({ cartItem }) => {
+type CartItemProps = {
+  cartItem: CartItem
+}
+
+const CheckoutItem: FC<CartItemProps> = ({ cartItem }) => {
   const { name, imageUrl, price, quantity } = cartItem;
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
